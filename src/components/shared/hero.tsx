@@ -3,7 +3,7 @@
 import React from "react";
 import { cn } from "@/src/lib/utils";
 import { Spotlight } from "../ui/spotlight";
-import { TextGenerateEffect } from "./text-generate-effect";
+import { TextGenerateEffect } from "../ui/text-generate-effect";
 import { MagicButton } from "../ui/magic-button";
 import { FaLocationArrow } from "react-icons/fa";
 
