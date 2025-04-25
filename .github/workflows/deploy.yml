@@ -30,5 +30,7 @@ jobs:
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
             cd /root/portfolio
-            docker compose down
-            docker compose up -d --build
+            docker stop portfolio || true
+            docker rm portfolio || true
+            docker build -t portfolio .
+            docker run -d --name portfolio -p 3000:3000 portfolio
