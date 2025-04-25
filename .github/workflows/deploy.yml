@@ -22,7 +22,7 @@ jobs:
           source: "."
           target: "/root/portfolio"
 
-      - name: Run Docker Compose on VPS
+      - name: Rebuild and restart Docker container on VPS
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.VPS_HOST }}
@@ -30,8 +30,7 @@ jobs:
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
             cd /root/portfolio
-            docker ps --filter "publish=3000" -q | xargs -r docker stop
-            docker ps -a --filter "publish=3000" -q | xargs -r docker rm
-
+            docker stop portfolio || true
+            docker rm portfolio || true
             docker build -t portfolio .
             docker run -d --name portfolio -p 3000:3000 portfolio
