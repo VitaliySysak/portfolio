@@ -56,6 +56,16 @@
   }
 }
 
+@layer base {
+  * {
+    @apply border-border !scroll-smooth;
+  }
+  button {
+    @apply active:outline-none;
+  }
+}
+
+
 @layer utilities {
   .heading {
     @apply font-bold text-4xl md:text-5xl text-center;
