@@ -30,7 +30,8 @@ jobs:
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
             cd /root/portfolio
-            docker stop portfolio || true
-            docker rm portfolio || true
+            docker ps --filter "publish=3000" -q | xargs -r docker stop
+            docker ps -a --filter "publish=3000" -q | xargs -r docker rm
+
             docker build -t portfolio .
             docker run -d --name portfolio -p 3000:3000 portfolio
