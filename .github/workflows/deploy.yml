@@ -33,7 +33,7 @@ jobs:
   #           bering152/portfolio:latest
   #           bering152/portfolio:${{ steps.vars.outputs.image-tag }}
   deploy:
-    needs: build-and-push
+    # needs: build-and-push
     runs-on: ubuntu-latest
     steps:
       - name: Deploy to VPS via SSH
