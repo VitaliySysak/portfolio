@@ -49,3 +49,4 @@ jobs:
             cd /root/portfolio
             docker compose down
             docker compose up -d
+
