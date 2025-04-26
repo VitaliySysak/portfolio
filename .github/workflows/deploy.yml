@@ -36,18 +36,18 @@ jobs:
     needs: build-and-push
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code again (to get docker-compose.yml)
+      - name: Checkout code again (to get compose.yaml)
         uses: actions/checkout@v4
 
-      - name: Copy docker-compose.yml to VPS
+      - name: Copy compose.yaml to VPS
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
-          source: "docker-compose.yml"
-          target: "/root/portfolio/docker-compose.yml"
-          
+          source: "compose.yaml"
+          target: "/root/portfolio/compose.yaml"
+
       - name: Deploy to VPS via SSH
         uses: appleboy/ssh-action@v1.0.0
         with:
