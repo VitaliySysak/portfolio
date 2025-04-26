@@ -8,29 +8,19 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: production
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Copy files to VPS via SSH
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.VPS_SSH_KEY }}
-          source: "."
-          target: "/root/portfolio"
-
-      - name: Rebuild and restart Docker container on VPS
+      - name: SSH into VPS and pull image from private registry
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
-            cd /root/portfolio
+            docker login -u ${{ secrets.REGISTRY_USER }} -p ${{ secrets.REGISTRY_PASSWORD }} bering152/portfolio
+            docker pull bering152/portfolio:latest
             docker stop portfolio || true
             docker rm portfolio || true
-            docker build -t portfolio .
-            docker run -d --name portfolio -p 3000:3000 portfolio
+            docker run -d --name portfolio -p 3000:3000 bering152/portfolio:latest
