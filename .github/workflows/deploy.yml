@@ -32,7 +32,6 @@ jobs:
           tags: |
             bering152/portfolio:latest
             bering152/portfolio:${{ steps.vars.outputs.image-tag }}
-
   deploy:
     needs: build-and-push
     runs-on: ubuntu-latest
