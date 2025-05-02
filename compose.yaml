@@ -1,9 +1,9 @@
-version: '3.8'
-
 services:
   portfolio:
     image: bering152/portfolio:latest
     container_name: portfolio
+    build:
+      context: .
     ports:
       - "3000:3000"
     restart: unless-stopped

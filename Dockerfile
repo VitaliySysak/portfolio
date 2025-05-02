@@ -2,12 +2,10 @@ FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-ARG ENV_FILE
-
 COPY package.json package-lock.json ./
 RUN npm ci
 
-RUN printf "%s" "$ENV_FILE" > .env.production
+COPY .env.production .env.production
 COPY . .
 
 RUN npm run build
@@ -20,6 +18,7 @@ COPY package.json package-lock.json ./
 RUN npm ci --omit=dev
 
 COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/.env.production ./.env.production
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./package.json
