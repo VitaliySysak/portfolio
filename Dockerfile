@@ -1,5 +1,3 @@
-# syntax=docker/dockerfile:1.4
-
 FROM node:20-alpine AS builder
 
 WORKDIR /app
@@ -7,10 +5,10 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci
 
+COPY .env.production .env.production
 COPY . .
-RUN npm run build
 
-# --------
+RUN npm run build
 
 FROM node:20-alpine AS runtime
 
