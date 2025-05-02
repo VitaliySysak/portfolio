@@ -13,6 +13,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Write .env.production file
+        run: echo "${{ secrets.ENV_FILE }}" > .env.production
+
       - name: Log in to DockerHub
         uses: docker/login-action@v3
         with:
@@ -25,8 +28,6 @@ jobs:
           context: .
           push: true
           tags: bering152/portfolio:latest
-          build-args: |
-            ENV_FILE=${{ secrets.ENV_FILE }}
 
   deploy:
     needs: build-and-push

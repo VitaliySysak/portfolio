@@ -7,7 +7,7 @@ ARG ENV_FILE
 COPY package.json package-lock.json ./
 RUN npm ci
 
-RUN echo "$ENV_FILE" > .env.production
+RUN printf "%s" "$ENV_FILE" > .env.production
 COPY . .
 
 RUN npm run build
