@@ -6,7 +6,6 @@ import { contactSchema, TContactSchema } from "./schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "../../ui/input";
 import sendEmail from "@/src/lib/send-email";
-import { LitUpButton } from "../../ui/lit-up-button";
 import { MagicButton } from "../../ui/magic-button";
 
 interface Props {
